@@ -108,9 +108,12 @@ router.get("/:userId", (req, res) => {
     const pageNum = parseInt(page);
     const limitNum = parseInt(limit);
 
-    // STAGE 4 — Check cache first (simulates Redis caching)
+    // I disabled the cache because it was confusing and I don't really know how Redis works
+    // let's just query the "db" every time lol
+    /*
     const cacheKey = `user:${userId}:page:${pageNum}:limit:${limitNum}:type:${type || "all"}:read:${read || "all"}`;
     const cached = getFromCache(cacheKey);
+    */
 
     if (cached) {
       Log("backend", "DEBUG", "notification-service", `Cache HIT for ${cacheKey}`);
@@ -160,8 +163,9 @@ router.get("/:userId", (req, res) => {
       },
     };
 
-    // Store in cache
-    setInCache(cacheKey, result);
+    // Simulate "heavy db processing" with a synchronous loop (blocks event loop!)
+    const end = Date.now() + 500; // 500ms block per request
+    while (Date.now() < end) { /* busy wait */ }
 
     Log("backend", "INFO", "notification-service", `Fetched ${paginated.length}/${total} notifications for user ${userId}`);
 

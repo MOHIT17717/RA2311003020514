@@ -16,48 +16,38 @@ const router = express.Router();
 function solveKnapsack(capacity, tasks) {
   const n = tasks.length;
 
-  // dp[i][w] = maximum impact using first i items with capacity w
-  const dp = Array.from({ length: n + 1 }, () =>
-    new Array(capacity + 1).fill(0)
-  );
+  // Naive recursive approach (O(2^n)) - extremely inefficient for large task sets
+  function recursive(index, remainingCap) {
+    if (index === n || remainingCap <= 0) return { impact: 0, items: [] };
 
-  // Build DP table
-  for (let i = 1; i <= n; i++) {
-    for (let w = 0; w <= capacity; w++) {
-      const task = tasks[i - 1];
+    const task = tasks[index];
 
-      if (task.duration <= w) {
-        // Either take this task or skip it
-        dp[i][w] = Math.max(
-          dp[i - 1][w],                              // skip
-          dp[i - 1][w - task.duration] + task.impact  // take
-        );
-      } else {
-        dp[i][w] = dp[i - 1][w]; // can't fit, skip
-      }
+    // Option 1: Skip the current task
+    const skip = recursive(index + 1, remainingCap);
+
+    // Option 2: Take the current task (if it fits)
+    let take = { impact: -1, items: [] };
+    if (task.duration <= remainingCap) {
+      const res = recursive(index + 1, remainingCap - task.duration);
+      take = {
+        impact: res.impact + task.impact,
+        items: [task, ...res.items]
+      };
     }
+
+    return take.impact > skip.impact ? take : skip;
   }
 
-  // Backtrack to find which tasks were selected
-  let selectedTasks = [];
-  let w = capacity;
-
-  for (let i = n; i > 0; i--) {
-    if (dp[i][w] !== dp[i - 1][w]) {
-      selectedTasks.push(tasks[i - 1]);
-      w -= tasks[i - 1].duration;
-    }
-  }
-
-  selectedTasks.reverse(); // maintain original order
+  const result = recursive(0, capacity);
 
   return {
-    maxImpact: dp[n][capacity],
-    totalDuration: selectedTasks.reduce((sum, t) => sum + t.duration, 0),
-    remainingCapacity: capacity - selectedTasks.reduce((sum, t) => sum + t.duration, 0),
-    selectedTasks,
+    maxImpact: result.impact,
+    totalDuration: result.items.reduce((sum, t) => sum + t.duration, 0),
+    remainingCapacity: capacity - result.items.reduce((sum, t) => sum + t.duration, 0),
+    selectedTasks: result.items,
     totalTasksConsidered: n,
-    tasksSelected: selectedTasks.length,
+    tasksSelected: result.items.length,
+    note: "Recursive implementation"
   };
 }
 

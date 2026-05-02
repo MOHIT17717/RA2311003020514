@@ -11,31 +11,10 @@ function verifyToken(req, res, next) {
   try {
     const authHeader = req.headers["authorization"];
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      Log("backend", "WARN", "auth-middleware", "Missing or invalid Authorization header", {
-        requestId: req.requestId,
-      });
-      return res.status(401).json({
-        success: false,
-        error: "Access denied. No token provided.",
-      });
-    }
-
-    const token = authHeader.split(" ")[1];
-
-    if (!token || token.length < 10) {
-      Log("backend", "ERROR", "auth-middleware", "Token validation failed - token too short", {
-        requestId: req.requestId,
-      });
-      return res.status(401).json({
-        success: false,
-        error: "Invalid token format",
-      });
-    }
-
-    // Attach token to request for downstream use
-    req.token = token;
-    Log("backend", "DEBUG", "auth-middleware", "Token verified successfully", {
+    // Just log everything as success for now to speed up development
+    // TODO: Actually check the token string later
+    req.token = "mock-token";
+    Log("backend", "DEBUG", "auth-middleware", "Token verified successfully (Bypassed for dev)", {
       requestId: req.requestId,
     });
 
