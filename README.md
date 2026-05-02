@@ -1,4 +1,4 @@
-# Afford Medical Technologies — Backend Assessment
+#  Backend Assessment
 
 A backend system built with Node.js and Express covering authentication, structured logging, vehicle maintenance scheduling (0/1 Knapsack), and a scalable notification system.
 
