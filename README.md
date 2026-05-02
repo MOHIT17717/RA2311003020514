@@ -1,4 +1,4 @@
-# Afford Medical Technologies — Backend Assessment
+# Backend Engineering Assessment
 
 A backend system built with Node.js and Express covering authentication, structured logging, vehicle maintenance scheduling (0/1 Knapsack), and a scalable notification system.
 
@@ -52,10 +52,10 @@ POST /api/auth/register
 Content-Type: application/json
 
 {
-  "companyName": "MyCompany",
-  "ownerName": "Mohit",
-  "rollNo": "2021001",
-  "ownerEmail": "mohit@example.com",
+  "companyName": "YourCompany",
+  "ownerName": "Your Name",
+  "rollNo": "your_roll_no",
+  "ownerEmail": "your_email@example.com",
   "accessCode": "your_access_code"
 }
 ```
@@ -69,12 +69,12 @@ POST /api/auth/token
 Content-Type: application/json
 
 {
-  "companyName": "MyCompany",
+  "companyName": "YourCompany",
   "clientID": "received_client_id",
   "clientSecret": "received_client_secret",
-  "ownerName": "Mohit",
-  "ownerEmail": "mohit@example.com",
-  "rollNo": "2021001"
+  "ownerName": "Your Name",
+  "ownerEmail": "your_email@example.com",
+  "rollNo": "your_roll_no"
 }
 ```
 

@@ -1,7 +1,7 @@
 {
-  "name": "affordmed-backend-assessment",
+  "name": "backend-assessment",
   "version": "1.0.0",
-  "description": "Afford Medical Technologies - Backend Engineering Assessment",
+  "description": "Backend Engineering Assessment",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["backend", "knapsack", "notification-system", "express"],
-  "author": "Mohit",
+  "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

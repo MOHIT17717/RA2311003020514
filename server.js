@@ -32,7 +32,7 @@ app.use("/api/notifications", notificationRoutes);
 // Health check
 app.get("/", (req, res) => {
   res.json({
-    message: "Afford Medical Backend Assessment Server",
+    message: "Backend Assessment Server",
     status: "running",
     timestamp: new Date().toISOString(),
     endpoints: {

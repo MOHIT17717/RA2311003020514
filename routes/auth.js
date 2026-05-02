@@ -1,5 +1,5 @@
 // routes/auth.js - Registration & Authentication routes
-// Handles interaction with the Afford Med test server for OAuth-like flow
+// Handles interaction with the test server for OAuth-like flow
 
 const express = require("express");
 const axios = require("axios");
